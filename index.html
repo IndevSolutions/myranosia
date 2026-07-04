@@ -1,24 +1,315 @@
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
     <meta charset="UTF-8">
-    <title>My D&D Wiki</title>
-    <link rel="stylesheet" href="/style.css">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Myranosia - A World of High Fantasy</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Georgia', serif;
+            background: url('images/myranosia.webp') no-repeat center center fixed;
+            background-size: cover;
+            color: #fff;
+        }
+
+        .hero {
+            height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            background: linear-gradient(135deg, rgba(0, 0, 0, 0.6), rgba(0, 0, 0, 0.3));
+            padding: 2rem;
+        }
+
+        .hero h1 {
+            font-size: 5rem;
+            margin-bottom: 1rem;
+            text-shadow: 3px 3px 6px rgba(0, 0, 0, 0.8);
+            letter-spacing: 0.1em;
+        }
+
+        .hero p {
+            font-size: 1.5rem;
+            margin-bottom: 2rem;
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.8);
+        }
+
+        /* Theme Section Base */
+        .theme-section {
+            min-height: 100vh;
+            padding: 4rem 2rem;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .content-container {
+            max-width: 1200px;
+            width: 100%;
+        }
+
+        .section-title {
+            font-size: 3rem;
+            margin-bottom: 3rem;
+            text-align: center;
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.8);
+        }
+
+        .card-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 2rem;
+            margin-bottom: 3rem;
+        }
+
+        .card {
+            padding: 2rem;
+            border-radius: 12px;
+            backdrop-filter: blur(5px);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+
+        .card:hover {
+            transform: translateY(-5px);
+        }
+
+        .card h3 {
+            font-size: 1.8rem;
+            margin-bottom: 1rem;
+        }
+
+        .card p {
+            line-height: 1.6;
+            margin-bottom: 1.5rem;
+        }
+
+        .btn {
+            display: inline-block;
+            padding: 0.8rem 2rem;
+            border: 2px solid;
+            border-radius: 8px;
+            text-decoration: none;
+            font-weight: bold;
+            transition: all 0.3s ease;
+            cursor: pointer;
+            font-size: 1rem;
+        }
+
+        .button-group {
+            display: flex;
+            gap: 1rem;
+            flex-wrap: wrap;
+            justify-content: center;
+            margin-top: 2rem;
+        }
+
+        /* THEME 1: Dark Arcane (Purple/Blue) */
+        .theme-arcane {
+            background: linear-gradient(135deg, rgba(30, 10, 60, 0.85), rgba(10, 20, 50, 0.85));
+        }
+
+        .theme-arcane .card {
+            background: rgba(60, 20, 100, 0.4);
+            border: 2px solid rgba(138, 43, 226, 0.5);
+            box-shadow: 0 8px 32px rgba(138, 43, 226, 0.2);
+        }
+
+        .theme-arcane .card:hover {
+            box-shadow: 0 12px 48px rgba(138, 43, 226, 0.4);
+        }
+
+        .theme-arcane .btn {
+            background: rgba(75, 0, 130, 0.6);
+            border-color: #9370db;
+            color: #fff;
+        }
+
+        .theme-arcane .btn:hover {
+            background: rgba(138, 43, 226, 0.8);
+            border-color: #ba55d3;
+            box-shadow: 0 0 20px rgba(138, 43, 226, 0.6);
+        }
+
+        /* THEME 2: Golden Kingdom (Gold/Amber) */
+        .theme-kingdom {
+            background: linear-gradient(135deg, rgba(60, 40, 10, 0.85), rgba(80, 50, 20, 0.85));
+        }
+
+        .theme-kingdom .card {
+            background: rgba(139, 90, 0, 0.3);
+            border: 2px solid rgba(218, 165, 32, 0.6);
+            box-shadow: 0 8px 32px rgba(218, 165, 32, 0.2);
+        }
+
+        .theme-kingdom .card:hover {
+            box-shadow: 0 12px 48px rgba(218, 165, 32, 0.4);
+        }
+
+        .theme-kingdom .btn {
+            background: rgba(139, 90, 0, 0.6);
+            border-color: #daa520;
+            color: #fff;
+        }
+
+        .theme-kingdom .btn:hover {
+            background: rgba(218, 165, 32, 0.8);
+            border-color: #ffd700;
+            box-shadow: 0 0 20px rgba(218, 165, 32, 0.6);
+        }
+
+        /* THEME 3: Emerald Forest (Green/Teal) */
+        .theme-forest {
+            background: linear-gradient(135deg, rgba(10, 50, 30, 0.85), rgba(20, 60, 50, 0.85));
+        }
+
+        .theme-forest .card {
+            background: rgba(0, 100, 60, 0.3);
+            border: 2px solid rgba(46, 139, 87, 0.6);
+            box-shadow: 0 8px 32px rgba(46, 139, 87, 0.2);
+        }
+
+        .theme-forest .card:hover {
+            box-shadow: 0 12px 48px rgba(46, 139, 87, 0.4);
+        }
+
+        .theme-forest .btn {
+            background: rgba(34, 139, 34, 0.6);
+            border-color: #3cb371;
+            color: #fff;
+        }
+
+        .theme-forest .btn:hover {
+            background: rgba(46, 139, 87, 0.8);
+            border-color: #66cdaa;
+            box-shadow: 0 0 20px rgba(46, 139, 87, 0.6);
+        }
+
+        .divider {
+            text-align: center;
+            margin: 2rem 0;
+            font-size: 1.2rem;
+            font-style: italic;
+            opacity: 0.8;
+        }
+    </style>
 </head>
-
 <body>
-    <header>
-        <h1>My D&D World</h1>
-        <nav>
-            <a href="/monsters/goblin.html">Bestiary</a>
-            <a href="/locations/waterdeep.html">Locations</a>
-        </nav>
-    </header>
-    <main>
-        <p>Welcome to the reference library for my campaign world.</p>
-    </main>
-    <script src="/js/main.js"></script>
-</body>
+    <!-- Hero Section -->
+    <div class="hero">
+        <div>
+            <h1>MYRANOSIA</h1>
+            <p>A Realm of Magic, Mystery, and Adventure</p>
+        </div>
+    </div>
 
+    <!-- Theme 1: Dark Arcane -->
+    <section class="theme-section theme-arcane">
+        <div class="content-container">
+            <h2 class="section-title">Theme 1: Dark Arcane</h2>
+
+            <div class="card-grid">
+                <div class="card">
+                    <h3>🗡️ Classes & Races</h3>
+                    <p>Explore the diverse inhabitants of Myranosia. From noble paladins to cunning rogues, discover your character's path.</p>
+                    <a href="#" class="btn">View All</a>
+                </div>
+                <div class="card">
+                    <h3>🐉 Bestiary</h3>
+                    <p>Encounter the creatures that roam these lands. Ancient dragons, magical beasts, and fearsome monsters await.</p>
+                    <a href="#" class="btn">Explore</a>
+                </div>
+                <div class="card">
+                    <h3>🏰 Locations</h3>
+                    <p>Journey through kingdoms, cities, and forgotten ruins. Each location holds secrets and stories untold.</p>
+                    <a href="#" class="btn">Discover</a>
+                </div>
+            </div>
+
+            <div class="divider">~ Sample Button Variations ~</div>
+
+            <div class="button-group">
+                <button class="btn">Primary Action</button>
+                <button class="btn">Secondary Action</button>
+                <button class="btn">Learn More</button>
+                <button class="btn">Get Started</button>
+            </div>
+        </div>
+    </section>
+
+    <!-- Theme 2: Golden Kingdom -->
+    <section class="theme-section theme-kingdom">
+        <div class="content-container">
+            <h2 class="section-title">Theme 2: Golden Kingdom</h2>
+
+            <div class="card-grid">
+                <div class="card">
+                    <h3>🗡️ Classes & Races</h3>
+                    <p>Explore the diverse inhabitants of Myranosia. From noble paladins to cunning rogues, discover your character's path.</p>
+                    <a href="#" class="btn">View All</a>
+                </div>
+                <div class="card">
+                    <h3>🐉 Bestiary</h3>
+                    <p>Encounter the creatures that roam these lands. Ancient dragons, magical beasts, and fearsome monsters await.</p>
+                    <a href="#" class="btn">Explore</a>
+                </div>
+                <div class="card">
+                    <h3>🏰 Locations</h3>
+                    <p>Journey through kingdoms, cities, and forgotten ruins. Each location holds secrets and stories untold.</p>
+                    <a href="#" class="btn">Discover</a>
+                </div>
+            </div>
+
+            <div class="divider">~ Sample Button Variations ~</div>
+
+            <div class="button-group">
+                <button class="btn">Primary Action</button>
+                <button class="btn">Secondary Action</button>
+                <button class="btn">Learn More</button>
+                <button class="btn">Get Started</button>
+            </div>
+        </div>
+    </section>
+
+    <!-- Theme 3: Emerald Forest -->
+    <section class="theme-section theme-forest">
+        <div class="content-container">
+            <h2 class="section-title">Theme 3: Emerald Forest</h2>
+
+            <div class="card-grid">
+                <div class="card">
+                    <h3>🗡️ Classes & Races</h3>
+                    <p>Explore the diverse inhabitants of Myranosia. From noble paladins to cunning rogues, discover your character's path.</p>
+                    <a href="#" class="btn">View All</a>
+                </div>
+                <div class="card">
+                    <h3>🐉 Bestiary</h3>
+                    <p>Encounter the creatures that roam these lands. Ancient dragons, magical beasts, and fearsome monsters await.</p>
+                    <a href="#" class="btn">Explore</a>
+                </div>
+                <div class="card">
+                    <h3>🏰 Locations</h3>
+                    <p>Journey through kingdoms, cities, and forgotten ruins. Each location holds secrets and stories untold.</p>
+                    <a href="#" class="btn">Discover</a>
+                </div>
+            </div>
+
+            <div class="divider">~ Sample Button Variations ~</div>
+
+            <div class="button-group">
+                <button class="btn">Primary Action</button>
+                <button class="btn">Secondary Action</button>
+                <button class="btn">Learn More</button>
+                <button class="btn">Get Started</button>
+            </div>
+        </div>
+    </section>
+</body>
 </html>
